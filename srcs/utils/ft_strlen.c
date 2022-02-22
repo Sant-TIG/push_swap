@@ -25,7 +25,7 @@
   DESCRIPTION
   ***********
   The function ft_strlen() mimics the behavior of the strlen() function from
-  <string.h> library. Both functions calculate the length of the string pointed
+  <string.h> C library. Both functions calculate the length of the string pointed
   to by str, excluding the terminating null byte.
 
   PARAMETERS
