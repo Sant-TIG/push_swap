@@ -10,9 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+  NAME
+  ****
+  ft_digit_str---> digit string
+
+  SYNOPSIS
+  ***********
+  #include "../incs/push_swap.h"
+  int	ft_digit_str(char *str);
+
+  DESCRIPTION
+  ***********
+  The function ft_digit_str() checks if the string pointed to by str is made up
+  of digits.
+
+  PARAMETERS
+  **********
+  str ---> The string to check.
+
+  RETURN VALUE
+  ************
+  - One if the string is made up of digits.
+  - Zero if the string contains any character that is not a digit.
+*/
+
 #include "../incs/push_swap.h"
 
-int	ft_strdigit(char *str)
+int	ft_digit_str(char *str)
 {
 	while (ft_isdigit(*str) && *str)
 		str++;
