@@ -106,6 +106,32 @@ void	ft_reverse_rotate_b(t_stack_b **head_b)
 	printf("rrb\n");
 }
 
+/*
+  NAME
+  ****
+  ft_reverse_rotate_ab ---> reverse rotate in both stacks
+  
+  SYNOPSIS
+  ***********
+  #include "../incs/push_swap.h"
+  void	ft_reverse_rotate_ab(t_stack_a **head_a, t_stack_b **head_b);
+  
+  DESCRIPTION
+  ***********
+  The function ft_reverse_rotate_ab() shifts all elements in both stacks down one
+  position, so that the last element becomes the first.
+  
+  PARAMETERS
+  **********
+  head_a ---> The head node from stack a
+  head_b ---> The head node from stack b
+  
+  RETURN VALUE
+  ************
+  Void function so it returns nothing. The function recieves as parameters the
+  memory addresses of the main nodes, so it modifies them directly.
+*/
+
 void	ft_reverse_rotate_ab(t_stack_a **head_a, t_stack_b **head_b)
 {
 	ft_reverse_rotate_a(head_a);
