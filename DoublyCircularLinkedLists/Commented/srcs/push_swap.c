@@ -15,46 +15,6 @@
 /*
   NAME
   ****
-  ft_check_args ---> check arguments
-
-  SYNOPSIS
-  ***********
-  #include "push_swap.h"
-  int	ft_check_args(char **args)
-
-  DESCRIPTION
-  ***********
-  The function ft_check_args() check that all the substrings that make up the two
-  dimensional string are made up of digits.
-  
-  BUILT-IN FUNCTIONS
-  ******************
-  - ft_digit_str ---> checks if the string pointed to by str is made up of
-    digits.
-
-  PARAMETERS
-  **********
-  args ---> The two-dimensional array in which the arguments are stored.
-
-  RETURN VALUE
-  ************
-  - One if all substrings are made up with strings
-  - Zero if not
-*/
-
-static int	ft_check_args(char **args)
-{
-	size_t	i;
-
-	i = 0;
-	while (args[i] && ft_digit_str(args[i]))
-		i++;
-	return (!args[i]);
-}
-
-/*
-  NAME
-  ****
   ft_treat_args ---> treat arguments
 
   SYNOPSIS
@@ -70,7 +30,7 @@ static int	ft_check_args(char **args)
   - At first it calls the ft_check_args() function to check that all the substrings
     that make up the two dimensional string are made up of digits.
   - If there are all digits, it calls the function ft_insert_nbr() which will
-    transform each substring into a number and then insert it into the list.
+    transform each substring into a number and then insert it into the list. Also
   - Finally, check that the list of numbers is not sorted calling ft_check_sorted()
     function.
   
@@ -92,88 +52,53 @@ static int	ft_check_args(char **args)
   - Zero if there is a problem.
 */
 
-static int	ft_treat_args(char **args, t_stack **stack_a)
+static int	ft_treat_args(char **args, t_stack **stack_a, t_pushswap *utils)
 {
-	size_t	pos;
+	int	pos;
 
 	pos = 1;
 	if (!ft_check_args(args))
 	{
-		write(1, "Error\n", 6);
+		printf("Error1\n");
 		return (0);
 	}
-	/*while (*args)
-		ft_insert_nbr()*/
-  return (1);
-
+	while (*args)
+		ft_insert_nbr(ft_atoi(*args++), pos++, stack_a);
+	utils->stacka_len = ft_listlen(*stack_a);
+	if (!ft_check_list(*stack_a, utils))
+	{
+		printf("Error2\n");
+		return (0);
+	}
+	if (!ft_check_sorted(*stack_a))
+		return (0);
+	return (1);
 }
 
-static void	ft_print_args(char **args)
-{
-	int	i;
-	i = -1;
-	while (args[++i])
-		printf("arg[%d] %s\n", i, args[i]);
-}
-
-
-/*
-  NAME
-  ****
-  ft_split ---> split string
-  SYNOPSIS
-  ***********
-  #include "libft.h"
-  char	**ft_split(const char *str, char c);
-  DESCRIPTION
-  ***********
-  The function ft_split() divides the string pointed to by str into multiple
-  strings delimited by each occurrence of the 'c' character. These strings will
-  be stored in a two-dimensional string, which will end with a NULL string.
-  
-  BUILT-IN FUNCTIONS
-  ******************
-  - ft_line_counter ---> counts the number of strings to be stored in the two
-    dimensional string.
-  - ft_process_string ---> iterates through the string and stores in each loop
-    the start and end of each substring.
-  - ft_fill_substrings ---> fill each substring
-  
-  PARAMETERS
-  **********
-  str ---> The string to split.
-  c   ---> The delimiting character.
-  RETURN VALUE
-  ************
-  - If the character 'c' is not in str, a two-dimensional string made up of the
-    string pointed to by str plus a NULL string. 
-  - If the character 'c' is in str, a two-dimensional string made up of the
-    substrings plus a NULL string.
-  - If str is NULL, return NULL,
-*/
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	t_stack	*stack_b;
+	t_pushswap	utils;
 	char	**args;
 
 	stack_a = NULL;
-	stack_b = NULL;
 	if (argc > 1)
 	{
 		argv++;
 		if (argc == 2)
 		{
 			args = ft_split(*argv, ' ');
-			ft_print_args(args);
-			if (!ft_treat_args(args, &stack_a))
-			{
-
-			}
+			if (!ft_treat_args(args, &stack_a, &utils))
+				return (0);
+			ft_push_swap(&stack_a, &utils);
+			ft_print_list(stack_a);
 		}
 		else
 		{
-			ft_print_args(argv);
+      			if (!ft_treat_args(argv, &stack_a, &utils))
+        			return (0);
+			ft_push_swap(&stack_a, &utils);
+			ft_print_list(stack_a);
 		}
 	}
 	return (0);
