@@ -35,7 +35,7 @@ OBJS_BONUS = $B$Omain_bonus.o\
 			 $B$Oft_swap.o $B$Oft_rotate.o $B$Oft_push.o $B$Oft_reverse_rotate.o\
 			 $B$Oprint.o
 
-CC = gcc #-fsanitize=address -g3
+CC = gcc
 CFLAGS =  -Wall -Werror -Wextra #-fsanitize=address -g3
 
 RM = -rm -rf
